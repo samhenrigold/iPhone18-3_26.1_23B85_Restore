@@ -9,57 +9,57 @@
 
 + (HUComfortSoundsShuffler)shufflerWithArray:(id)array
 {
-  arrayCopy = array;
-  v4 = [[HUComfortSoundsShuffler alloc] initWithArray:arrayCopy];
+  inputArray = array;
+  shuffler = [[HUComfortSoundsShuffler alloc] initWithArray:inputArray];
 
-  return v4;
+  return shuffler;
 }
 
 - (HUComfortSoundsShuffler)initWithArray:(id)array
 {
-  arrayCopy = array;
-  v9.receiver = self;
-  v9.super_class = HUComfortSoundsShuffler;
-  v5 = [(HUComfortSoundsShuffler *)&v9 init];
-  if (v5)
+  inputArray = array;
+  superCall.receiver = self;
+  superCall.super_class = HUComfortSoundsShuffler;
+  instance = [(HUComfortSoundsShuffler *)&superCall init];
+  if (instance)
   {
-    v6 = [MEMORY[0x1E695DF70] arrayWithArray:arrayCopy];
-    array = v5->_array;
-    v5->_array = v6;
+    mutableCopy = [MEMORY[0x1E695DF70] arrayWithArray:inputArray];
+    oldArray = instance->_array;
+    instance->_array = mutableCopy;
 
-    [(HUComfortSoundsShuffler *)v5 shuffle];
-    v5->_index = 0;
+    [(HUComfortSoundsShuffler *)instance shuffle];
+    instance->_index = 0;
   }
 
-  return v5;
+  return instance;
 }
 
 - (id)nextObject
 {
-  selfCopy = self;
-  objc_sync_enter(selfCopy);
-  array = selfCopy->_array;
-  v4 = selfCopy->_index + 1;
-  selfCopy->_index = v4;
-  if (v4 >= [(NSMutableArray *)array count])
+  this = self;
+  objc_sync_enter(this);
+  array = this->_array;
+  nextIndex = this->_index + 1;
+  this->_index = nextIndex;
+  if (nextIndex >= [(NSMutableArray *)array count])
   {
-    [(HUComfortSoundsShuffler *)selfCopy shuffle];
-    selfCopy->_index = 0;
+    [(HUComfortSoundsShuffler *)this shuffle];
+    this->_index = 0;
   }
 
-  if ([(NSMutableArray *)selfCopy->_array count]<= selfCopy->_index)
+  if ([(NSMutableArray *)this->_array count]<= this->_index)
   {
-    v5 = 0;
+    result = 0;
   }
 
   else
   {
-    v5 = [(NSMutableArray *)selfCopy->_array objectAtIndex:?];
+    result = [(NSMutableArray *)this->_array objectAtIndex:this->_index];
   }
 
-  objc_sync_exit(selfCopy);
+  objc_sync_exit(this);
 
-  return v5;
+  return result;
 }
 
 - (void)shuffle
@@ -69,25 +69,25 @@
     lastObject = [(NSMutableArray *)self->_array lastObject];
     if ([(NSMutableArray *)self->_array count]!= 1)
     {
-      v3 = 0;
-      v4 = 0;
+      remainingDecrement = 0;
+      currentIndex = 0;
       do
       {
-        [(NSMutableArray *)self->_array exchangeObjectAtIndex:v4 withObjectAtIndex:v4 + arc4random_uniform(v3 + [(NSMutableArray *)self->_array count])];
-        ++v4;
-        --v3;
+        [(NSMutableArray *)self->_array exchangeObjectAtIndex:currentIndex withObjectAtIndex:currentIndex + arc4random_uniform(remainingDecrement + [(NSMutableArray *)self->_array count])];
+        ++currentIndex;
+        --remainingDecrement;
       }
 
-      while (v4 < [(NSMutableArray *)self->_array count]- 1);
+      while (currentIndex < [(NSMutableArray *)self->_array count]- 1);
     }
 
     firstObject = [(NSMutableArray *)self->_array firstObject];
 
-    v6 = lastObject;
+    lastObjectCopy = lastObject;
     if (firstObject == lastObject)
     {
       [(NSMutableArray *)self->_array exchangeObjectAtIndex:0 withObjectAtIndex:[(NSMutableArray *)self->_array count]- 1];
-      v6 = lastObject;
+      lastObjectCopy = lastObject;
     }
   }
 }
